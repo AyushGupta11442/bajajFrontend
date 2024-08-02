@@ -14,18 +14,18 @@ function App() {
         { value: 'highest_alphabet', label: 'Highest Alphabet' }
     ];
 
-    const handleInputChange = (e) => {
+    const handleChages = (e) => {
         setJsonInput(e.target.value);
     };
+    // handle the form submission
 
-    const handleFormSubmit = async (e) => {
+    const formSubmit = async (e) => {
         e.preventDefault();
         try {
             const parsedInput = JSON.parse(jsonInput);
             if (!parsedInput.data || !Array.isArray(parsedInput.data)) {
                 throw new Error("Invalid JSON format");
             }
-
             const res = await axios.post('https://bajajbackend123-9b48993d331c.herokuapp.com/bfhl', parsedInput);
             setResponse(res.data);
             setError('');
@@ -34,10 +34,11 @@ function App() {
             setResponse(null);
         }
     };
-
+   // handle the option change
     const handleOptionChange = (selected) => {
         setSelectedOptions(selected);
     };
+    // render the response
 
     const renderResponse = () => {
         if (!response) return null;
@@ -60,9 +61,9 @@ function App() {
     return (
         <div className="App">
             <h1>RA2111003030031</h1>
-            <form onSubmit={handleFormSubmit}>
+            <form onSubmit={formSubmit}>
                 <label>API Input</label>
-                <textarea value={jsonInput} onChange={handleInputChange} placeholder='Enter JSON here' />
+                <textarea value={jsonInput} onChange={handleChages} placeholder='Enter JSON here' className='textarea' />
                 <button type="submit">Submit</button>
             </form>
             {error && <div className="error">{error}</div>}
